@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <h2 class="text-muted py-3">TODO作成</h2>
         <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
             <div class="form-group">
-                <label for="title">タスク名</label>
+                <label for="title">タスク名a</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="タスク名" required>
             </div>
             <div class="form-group">
