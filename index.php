@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <div class="container">
     <div class="col-md-8">
-        <h1 class="text-center text-primary py-3">TODO App</h1>
+        <h1 class="text-center text-primary py-3">TODOoooooo App</h1>
 
         <h2 class="text-muted py-3">TODO作成</h2>
         <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
