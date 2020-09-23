@@ -4,15 +4,12 @@ require_once './todo.php';
 $todo = new Todo();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    //タスクを追加するか削除するか
     if (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
         $todo->delete();
     } else {
         $todo->post($_POST['title'], $_POST['due_date']);
     }
 }
-
-
 ?>
 <!DOCTYPE>
 <html lang="ja">
@@ -83,7 +80,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                         echo "<option value='$key' $is_selected>$label</option>";
                                     }
                                     ?>
-                                    
                                 </select>
                             </label>
                         </td>
