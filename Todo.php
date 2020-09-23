@@ -53,4 +53,10 @@ class Todo
         $stmt->execute();
     }
 
+    public function delete() {
+        $sql = "UPDATE `todo` SET `deleted_at` = NOW()";
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->execute();
+    }
+
 }
