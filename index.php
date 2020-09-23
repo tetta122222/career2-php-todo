@@ -4,6 +4,7 @@ require_once './todo.php';
 $todo = new Todo();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    //タスクを追加するか削除するか
     if (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
         $todo->delete();
     } else {
