@@ -4,9 +4,11 @@ require_once './todo.php';
 $todo = new Todo();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    //タスクの全削除
     if (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
         $todo->delete();
     }
+    // タスクの更新
     elseif (isset($_POST["method"]) && $_POST["method"] === "UPDATE") {
         $todo->update($_POST["todo_id"], $_POST['status']);
     } 
@@ -34,6 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <h2 class="text-muted py-3">TODO作成</h2>
         <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
+            <div class="form-group">
+                <input type="file" name="upimg" accept="image/*">
+            </div>    
             <div class="form-group">
                 <label for="title">タスク名</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="タスク名" required>

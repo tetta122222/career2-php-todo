@@ -52,7 +52,7 @@ class Todo
         $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
         $stmt->execute();
     }
-
+    // タスクの更新
     public function update(int $id, int $status)
     {
         $sql = "UPDATE `todo` SET status = :status WHERE id = :id";
