@@ -4,7 +4,11 @@ require_once './todo.php';
 $todo = new Todo();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $todo->post($_POST['title'], $_POST['due_date']);
+    if (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
+        $todo->delete();
+    } else {
+        $todo->post($_POST['title'], $_POST['due_date']);
+    }
 }
 ?>
 <!DOCTYPE>
@@ -91,26 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             ?>
             </tbody>
         </table>
-        <?php
-            const THREAD_FILE = 'toukou.txt';
-
-            require_once 'todo.php';
-            $todo = new Todo('掲示板App');
-
-            if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            if (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
-                $todo->delete();
-            } else {
-                $todo->post($_POST['title'], $_POST['due_date']);
-            }
-
-            // ブラウザのリロード対策
-            $redirect_url = $_SERVER['HTTP_REFERER'];
-            header("Location: $redirect_url");
-            exit;
-            }
-            echo $todo->getList();
-        ?>
+       
     </div>
 </div>
 
