@@ -52,16 +52,22 @@ class Todo
         $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
         $stmt->execute();
     }
+
+    public function update(int $id, int $status)
+    {
+        $sql = "UPDATE `todo` SET status = :status WHERE id = :id";
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':status', $status, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
     // タスクの削除
     public function delete() {
         $sql = "UPDATE `todo` SET `deleted_at` = NOW()";
         $stmt = $this->dbh->prepare($sql);
         $stmt->execute();
     }
-    public function update() {
-        $up = $_POST["status"];
-        echo $up;
 
-    }
 
 }
