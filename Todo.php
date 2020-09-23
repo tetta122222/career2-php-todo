@@ -46,7 +46,7 @@ class Todo
      * @param string $due_date
      */
     public function post(string $title, string $due_date)
-    {
+    {   
         $stmt = $this->dbh->prepare("INSERT INTO `todo` (title, due_date) VALUES (:title, :due_date)");
         $stmt->bindParam(':title', $title, PDO::PARAM_STR);
         $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);

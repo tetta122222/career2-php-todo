@@ -37,7 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <h2 class="text-muted py-3">TODO作成</h2>
         <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
             <div class="form-group">
-                <input type="file" name="upimg" accept="image/*">
+                <label for="upload">画像のアップロード</label>
+	            <input type="file" name="upfile" size="30" id="upload">
             </div>    
             <div class="form-group">
                 <label for="title">タスク名</label>
