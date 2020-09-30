@@ -4,22 +4,18 @@ require_once './todo.php';
 $todo = new Todo();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    //タスクの全削除
-    if (isset($_POST["method"]) && $_POST["method"] === "DELETE_All") {
-        $todo->delete_all();
-    }
-    // タスクの更新
-    else if($_FILES['image']){
-        print_r($_FILES['image']);
-    }
+    if (isset($_POST["method"]) && $_POST["method"] === "DELETE_ALL") {
+        $todo->deleteAll();
 
-    //タスクの削除
-    elseif (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
+    } elseif (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
         $todo->delete($_POST["todo_id"]);
-    } 
-    // タスクの保存
-    else {
+
+    } elseif (isset($_POST["method"]) && $_POST["method"] === "UPDATE") {
+        $todo->update($_POST["todo_id"], $_POST['status']);
+
+    } else {
         $todo->post($_POST['title'], $_POST['due_date'], $_FILES['image']);
+
     }
 }
 ?>
@@ -32,20 +28,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
-    <title>TODOooo App</title>
+    <title>TODO App</title>
 </head>
 <body>
 
 <div class="container">
-    <div class="col-md-8">
-        <h1 class="text-center text-primary py-3">TODOoooooo App</h1>
+    <div class="col-md-12">
+        <h1 class="text-center text-primary py-3">TODO App</h1>
 
         <h2 class="text-muted py-3">TODO作成</h2>
-        <form method="POST" enctype="multipart/form-data" action="<?php print($_SERVER['PHP_SELF']) ?>">
-            <div class="form-group">
-                <label for="upload">画像のアップロード</label>
-	            <input type="file" name="image" size="30" id="upload">
-            </div>    
+        <form method="POST" enctype="multipart/form-data"  action="<?php print($_SERVER['PHP_SELF']) ?>">
             <div class="form-group">
                 <label for="title">タスク名</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="タスク名" required>
@@ -54,16 +46,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <label for="due_date">期限</label>
                 <input type="text" class="form-control" name="due_date" id="due_date" required>
             </div>
+            <p>アップロード画像</p>
+            <input type="file" name="image">
             <br><br>
             <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
             <input class="btn btn-primary"  type="submit" name="btn" value="TODOを作成する">
         </form>
 
         <hr>
+
         <h2 class="text-muted py-3">やること一覧</h2>
         <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
-                <input type="hidden" name="method" value="DELETE_All">
-                <button class="btn btn-danger" type="submit">投稿を全削除する</button>
+            <input type="hidden" name="method" value="DELETE_ALL">
+            <button class="btn btn-danger" type="submit">TODOを全削除する</button>
         </form>
         <?php
         $todo_list = $todo->getList();
@@ -79,7 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </tr>
             </thead>
             <tbody>
-
             <?php
             foreach ($todo_list as $todo) {
                 ?>
@@ -99,28 +93,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 </select>
                             </label>
                         </td>
-                        <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
-                            <td>
-                                <input type="hidden" name="method" value="UPDATE">
-                                <input type="hidden" name="todo_id" value="<?=$todo["id"]; ?>">
-                                <button class="btn btn-primary" type="submit">変更</button>
-                            </td>
-                        </form>
-                        <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
-                            <td>
-                                <input type="hidden" name="method" value="DELETE">
-                                <input type="hidden" name="todo_id" value="<?=$todo["id"]; ?>">
-                                <button class="btn btn-danger" type="submit">削除</button>
-                            </td>
-                            </form>            
+                        <td>
+                            <input type="hidden" name="method" value="UPDATE">
+                            <input type="hidden" name="todo_id" value="<?=$todo["id"]; ?>">
+                            <button class="btn btn-primary" type="submit">変更</button>
+                        </td>
                     </form>
+                    <td>
+                        <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
+                            <input type="hidden" name="method" value="DELETE">
+                            <input type="hidden" name="todo_id" value="<?=$todo["id"]; ?>">
+                            <button class="btn btn-danger" type="submit">削除</button>
+                        </form>
+                    </td>
                 </tr>
                 <?php
             }
             ?>
             </tbody>
         </table>
-       
     </div>
 </div>
 
