@@ -9,16 +9,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $todo->delete_all();
     }
     // タスクの更新
-    elseif (isset($_POST["method"]) && $_POST["method"] === "UPDATE") {
-        $todo->update($_POST["todo_id"], $_POST['status']);
-    } 
+    else if($_FILES['image']){
+        print_r($_FILES['image']);
+    }
+
     //タスクの削除
     elseif (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
         $todo->delete($_POST["todo_id"]);
     } 
     // タスクの保存
     else {
-        $todo->post($_POST['title'], $_POST['due_date']);
+        $todo->post($_POST['title'], $_POST['due_date'], $_FILES['image']);
     }
 }
 ?>
@@ -40,10 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <h1 class="text-center text-primary py-3">TODOoooooo App</h1>
 
         <h2 class="text-muted py-3">TODO作成</h2>
-        <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
+        <form method="POST" enctype="multipart/form-data" action="<?php print($_SERVER['PHP_SELF']) ?>">
             <div class="form-group">
                 <label for="upload">画像のアップロード</label>
-	            <input type="file" name="upfile" size="30" id="upload">
+	            <input type="file" name="image" size="30" id="upload">
             </div>    
             <div class="form-group">
                 <label for="title">タスク名</label>
@@ -59,7 +60,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </form>
 
         <hr>
-
+        <?PHP
+            $h=apache_request_headers();
+            print $h["Content-Type"];
+        ?>
         <h2 class="text-muted py-3">やること一覧</h2>
         <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
                 <input type="hidden" name="method" value="DELETE_All">
