@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $todo->update($_POST["todo_id"], $_POST['status']);
     } 
     elseif (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
-        $todo->delete();
+        $todo->delete($_POST["todo_id"]);
     } 
     // タスクの保存
     else {
