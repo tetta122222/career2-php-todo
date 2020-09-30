@@ -60,10 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </form>
 
         <hr>
-        <?PHP
-            $h=apache_request_headers();
-            print $h["Content-Type"];
-        ?>
         <h2 class="text-muted py-3">やること一覧</h2>
         <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
                 <input type="hidden" name="method" value="DELETE_All">
