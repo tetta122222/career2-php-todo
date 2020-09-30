@@ -72,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <thead>
             <tr>
                 <th>タイトル</th>
+                <th>画像</th>
                 <th>期限</th>
                 <th>状態</th>
                 <th>更新</th>
