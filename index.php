@@ -97,16 +97,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 </select>
                             </label>
                         </td>
-                        <td>
-                            <input type="hidden" name="method" value="UPDATE">
-                            <input type="hidden" name="todo_id" value="<?=$todo["id"]; ?>">
-                            <button class="btn btn-primary" type="submit">変更</button>
-                        </td>
-                        <td>
-                            <input type="hidden" name="method" value="DELETE">
-                            <input type="hidden" name="todo_id" value="<?=$todo["id"]; ?>">
-                            <button class="btn btn-danger" type="submit">削除</button>
-                        </td>
+                        <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
+                            <td>
+                                <input type="hidden" name="method" value="UPDATE">
+                                <input type="hidden" name="todo_id" value="<?=$todo["id"]; ?>">
+                                <button class="btn btn-primary" type="submit">変更</button>
+                            </td>
+                        </form>
+                        <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
+                            <td>
+                                <input type="hidden" name="method" value="DELETE">
+                                <input type="hidden" name="todo_id" value="<?=$todo["id"]; ?>">
+                                <button class="btn btn-danger" type="submit">削除</button>
+                            </td>
+                            </form>            
                     </form>
                 </tr>
                 <?php
