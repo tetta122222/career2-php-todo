@@ -5,13 +5,14 @@ $todo = new Todo();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     //タスクの全削除
-    if (isset($_POST["method"]) && $_POST["method"] === "DELETE_All") {
+    if (isset($_POST["method"]) && $_POST["method"] === "DELETE_ALL") {
         $todo->delete_all();
     }
     // タスクの更新
     elseif (isset($_POST["method"]) && $_POST["method"] === "UPDATE") {
         $todo->update($_POST["todo_id"], $_POST['status']);
     } 
+    //タスクの削除
     elseif (isset($_POST["method"]) && $_POST["method"] === "DELETE") {
         $todo->delete($_POST["todo_id"]);
     } 
@@ -61,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <h2 class="text-muted py-3">やること一覧</h2>
         <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
-                <input type="hidden" name="method" value="DELETE_All">
+                <input type="hidden" name="method" value="DELETE_ALL">
                 <button class="btn btn-danger" type="submit">投稿を全削除する</button>
         </form>
         <?php
