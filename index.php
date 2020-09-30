@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <h2 class="text-muted py-3">やること一覧</h2>
         <form method="POST" action="<?php print($_SERVER['PHP_SELF']) ?>">
-                <input type="hidden" name="method" value="DELETE_ALL">
+                <input type="hidden" name="method" value="DELETE_All">
                 <button class="btn btn-danger" type="submit">投稿を全削除する</button>
         </form>
         <?php
