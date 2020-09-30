@@ -70,7 +70,7 @@ class Todo
     }
     
     // タスクの削除
-    public function delete() {
+    public function delete(int $id) {
         $sql = "UPDATE `todo` SET `deleted_at` = NOW() WHERE id = :id";
         $stmt = $this->dbh->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
