@@ -44,6 +44,7 @@ class Todo
      * タスクを保存する
      * @param string $title
      * @param string $due_date
+     * @param array|null $image_file
      */
     public function post(string $title, string $due_date, array $image_file = null)
     {
@@ -60,7 +61,12 @@ class Todo
         $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
         $stmt->execute();
     }
-    // タスクの更新
+
+    /**
+     * タスクを更新する
+     * @param int $id
+     * @param int $status
+     */
     public function update(int $id, int $status)
     {
         $sql = "UPDATE `todo` SET status = :status WHERE id = :id";
@@ -70,24 +76,25 @@ class Todo
         $stmt->execute();
     }
 
-    // タスクの全削除
-    public function delete_all() {
+    /**
+     * タスクを全削除する
+     */
+    public function deleteAll()
+    {
         $sql = "UPDATE `todo` SET `deleted_at` = NOW()";
         $stmt = $this->dbh->prepare($sql);
         $stmt->execute();
     }
-    
-    // タスクの削除
-    public function delete(int $id) {
-        //update分を変数に格納
+
+    /**
+     * タスクを削除する
+     * @param int $id
+     */
+    public function delete(int $id)
+    {
         $sql = "UPDATE `todo` SET `deleted_at` = NOW() WHERE id = :id";
-        //sql実行準備
         $stmt = $this->dbh->prepare($sql);
-        //:idに削除するタスクのidを格納
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        //実行
         $stmt->execute();
-
     }
-
 }
