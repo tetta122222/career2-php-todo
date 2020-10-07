@@ -4,7 +4,7 @@ require_once './todo.php';
 $todo = new Todo();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    //methodがDELETE_ALLだた場合全削除
+    //methodがDELETE_ALLdatta
     if (isset($_POST["method"]) && $_POST["method"] === "DELETE_ALL") {
         $todo->deleteAll();
     //methodがDELETEだった場合削除
