@@ -9,9 +9,9 @@ class AddTodoImage extends Migration
      */
     public function up()
     {
-        $sql = <<<EOT
-        (ALTER TABLE `todo` ADD image VARCHAR(255) )DEFAULT NULL after `status`
-        EOT;
+        $sql = "ALTER TABLE `todo` ADD image VARCHAR(255) DEFAULT NULL after `status`;";
+        $container = $this->getContainer();
+        $container['db']->query($sql);
     }
 
     /**
