@@ -59,6 +59,7 @@ class Todo
         $stmt = $this->dbh->prepare("INSERT INTO `todo` (title, due_date) VALUES (:title, :due_date)");
         $stmt->bindParam(':title', $title, PDO::PARAM_STR);
         $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
+        $stmt->bingParam(':image',$image, PDO::PARAM_STR)
         $stmt->execute();
     }
 
